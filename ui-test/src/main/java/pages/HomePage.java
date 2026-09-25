@@ -26,7 +26,7 @@ public class HomePage extends BasePage {
 
 	public boolean isOnHomePage() {
 		return isElementIsVisible(driver,
-				By.xpath("//*[@data-testid='HomeBanner-Content']"),
+				By.xpath("//div[@data-testid='HomeBanner-Content']"),
 				"Verify user is on home page (banner is displayed)");
 	}
 
@@ -139,20 +139,15 @@ public class HomePage extends BasePage {
 	}
 
 	public Boolean isSuccessMessageDisplayed() {
-		By locator = By.xpath("//p[@data-testid='title-download-result']");
+		By successIcon = By.cssSelector("[data-testid='DownloadResult-Success-ShieldIcon']");
+		By titleLocator = By.xpath("//p[@data-testid='title-download-result']");
 		try {
-			WebElement element = new WebDriverWait(driver, Duration.ofSeconds(getConfiguredWaitTimeInSeconds()))
-					.until(ExpectedConditions.visibilityOfElementLocated(locator));
-			String actualText = element.getText();
-			boolean isSuccess = actualText != null && actualText.toLowerCase().contains("success");
-			if (isSuccess) {
-				logStep("Verify download success message is displayed [text: " + actualText + "]", locator);
-			} else {
-				logWarning("Download result title does not indicate success — actual text: '" + actualText + "'", locator);
-			}
-			return isSuccess;
+            WebElement element = new WebDriverWait(driver, Duration.ofSeconds(getConfiguredWaitTimeInSeconds()))
+					.until(ExpectedConditions.visibilityOfElementLocated(successIcon));
+			logStep("Verify download success state is displayed [title: " + driver.findElement(titleLocator).getText() + "]", successIcon);
+			return true;
 		} catch (Exception e) {
-			logWarning("Verify download success message is displayed — element not visible", locator);
+			logWarning("Download result is not in success state [title: " + driver.findElement(titleLocator).getText() + "]", successIcon);
 			return false;
 		}
 	}

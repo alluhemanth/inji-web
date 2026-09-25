@@ -235,7 +235,7 @@ public class Loginpage extends BasePage {
 	public void clickOnProfileDropDownDisplayedAgain() {
 		waituntilpagecompletelyloaded();
 		clickOnElement(driver,
-				By.xpath("//*[@class='relative inline-block cursor-pointer']"),
+				By.xpath("//button[@class='relative inline-block cursor-pointer']"),
 				getConfiguredWaitTimeInSeconds());
 	}
 
@@ -334,7 +334,7 @@ public class Loginpage extends BasePage {
 
 	public void clickOnProfileOption() {
 		clickOnElement(driver,
-				By.xpath("//*[@data-testid='profile-dropdown']//*[text()='Profile']"),
+				By.xpath("//div[@data-testid='profile-dropdown']//button[text()='Profile']"),
 				"Click 'Profile' option in profile dropdown");
 	}
 
@@ -566,7 +566,7 @@ public class Loginpage extends BasePage {
 
 	public boolean isProfileDrownOptionsPresent(String optionText) {
 		try {
-			String xpath = String.format("//div[@data-testid='profile-dropdown']//*[text()='%s']", optionText);
+			String xpath = String.format("//div[@data-testid='profile-dropdown']//button[text()='%s']", optionText);
 			return isElementIsVisible(driver, By.xpath(xpath),
 					"Verify '" + optionText + "' option is present in profile dropdown");
 		} catch (NoSuchElementException e) {
@@ -576,7 +576,7 @@ public class Loginpage extends BasePage {
 
 	public void clickonFAQLink() {
 		clickOnElement(driver,
-				By.xpath("//div[@data-testid='profile-dropdown']//*[text()='FAQ']"),
+				By.xpath("//div[@data-testid='profile-dropdown']//button[text()='FAQ']"),
 				"Click 'FAQ' option in profile dropdown");
 	}
 

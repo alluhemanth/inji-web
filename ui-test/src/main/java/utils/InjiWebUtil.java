@@ -203,7 +203,7 @@ public class InjiWebUtil extends AdminTestUtil {
 						int intValue = Integer.parseInt(rawValue.trim());
 						result.put(resultKey, intValue);
 					} catch (NumberFormatException e) {
-						System.err.println("[WARN] Failed to parse value for key " + actuatorKey + " (" + rawValue + ")");
+						logger.error("[WARN] Failed to parse value for key " + actuatorKey + " (" + rawValue + ")");
 					}
 				}
 			}

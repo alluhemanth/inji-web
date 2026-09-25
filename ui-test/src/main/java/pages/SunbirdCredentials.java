@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.InjiWebConfigManager;
 import utils.InjiWebUtil;
 
 import java.time.Duration;
@@ -22,7 +23,8 @@ public class SunbirdCredentials extends BasePage {
 	private static final By SECOND_ITEM = By.xpath("//div[starts-with(@data-testid, 'ItemBox-Outer-Container-1-')]");
 
 	public Boolean isDownloadSunbirdCredentialsDisplayed() {
-		By sunbirdCredentialsButton = By.xpath("//div[@role='menuitem'][.//h3[normalize-space(.)='StayProtected Insurance']]");
+		String issuerText = InjiWebConfigManager.getproperty("issuerSearchTextforSunbird");
+		By sunbirdCredentialsButton = By.xpath(String.format("//div[@role='menuitem'][.//h3[normalize-space(.)='%s']]", issuerText));
 		return isElementIsVisible(driver, sunbirdCredentialsButton,
 				"Verify Sunbird credential issuer card is displayed");
 	}
@@ -49,24 +51,25 @@ public class SunbirdCredentials extends BasePage {
 	}
 
 	public void clickOnDownloadSunbird() {
-		By sunbirdCredentialsButton = By.xpath("//div[@role='menuitem'][.//h3[normalize-space(.)='StayProtected Insurance']]");
+		String issuerText = InjiWebConfigManager.getproperty("issuerSearchTextforSunbird");
+		By sunbirdCredentialsButton = By.xpath(String.format("//div[@role='menuitem'][.//h3[normalize-space(.)='%s']]", issuerText));
 		clickOnElement(driver, sunbirdCredentialsButton,
 				"Click on Sunbird credential issuer card to start download");
 	}
 
 	public void enterPolicyNumber(String string) {
-		enterText(driver, By.xpath("//input[@id='policyNumber']"), string,
+		enterText(driver, By.id("policyNumber"), string,
 				"Enter policy number");
 	}
 
 	public Boolean isPolicyNumeTextBoxDisplayed() {
 		return isElementIsVisible(driver,
-				By.xpath("//input[@id='policyNumber']"),
+				By.id("policyNumber"),
 				"Verify policy number input box is displayed");
 	}
 
 	public void enterFullName(String string) {
-		enterText(driver, By.xpath("//input[@id='fullName']"), string,
+		enterText(driver, By.id("fullName"), string,
 				"Enter full name");
 	}
 
@@ -83,7 +86,7 @@ public class SunbirdCredentials extends BasePage {
 		dobField.sendKeys(formattedDob);
 		dobField.sendKeys(Keys.TAB);
 
-		logStep("Enter date of birth", By.id("_form_dob"));
+		logStep("Enter date of birth", By.id("dob"));
 	}
 
 	public void clickOnLogin() {
@@ -132,8 +135,7 @@ public class SunbirdCredentials extends BasePage {
 
 	public Boolean isEnterDOBHeaderDisplayed() {
 		return isElementIsVisible(driver,
-				By.xpath("//input[@id='dob']"),
-				"Verify 'Enter DOB' field header is displayed");
+				By.id("dob"), "Verify 'Enter DOB' field header is displayed");
 	}
 
 	public Boolean isAuthenticationFailedDisplayed() {

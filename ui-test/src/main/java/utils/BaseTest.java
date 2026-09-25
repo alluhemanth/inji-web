@@ -182,9 +182,9 @@ public class BaseTest {
     public void cleanupStaleWalletBeforeCreation(Scenario scenario) {
         try {
             logger.info("Cleaning up any stale wallet before wallet-creation scenario '{}'", scenario.getName());
-            utils.HttpUtils.cleanupWallets();
-        } catch (Throwable t) {
-            logger.warn("Stale wallet cleanup failed before '{}': {}", scenario.getName(), t.getMessage());
+            HttpUtils.cleanupWallets();
+        } catch (Exception e) {
+            throw new IllegalStateException("Wallet cleanup failed before scenario: " + scenario.getName(), e);
         }
     }
 
