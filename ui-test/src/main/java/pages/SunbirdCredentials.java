@@ -144,14 +144,6 @@ public class SunbirdCredentials extends BasePage {
 				"Verify authentication-failed error banner is displayed");
 	}
 
-	public Boolean isVehicleInsuranceDisplayed() {
-		return isDownloadSunbirdCredentialsDisplayed();
-	}
-
-	public void clickOnVehicleInsurance() {
-		clickOnSunbirdInsurance();
-	}
-
 	public boolean waitForLoginFailure(int timeoutInSeconds) {
 		try {
 			new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
